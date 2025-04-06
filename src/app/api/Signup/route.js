@@ -1,4 +1,5 @@
 "use server";
+
 import { NextResponse } from "next/server";
 import mariadb from "mariadb";
 import bcrypt from "bcrypt";
@@ -29,10 +30,23 @@ export async function POST(req) {
   try {
     conn = await pool.getConnection();
 
-    // 비밀번호 해싱
+    // 1. 이메일 중복 검사
+    const existingUser = await conn.query(
+      "SELECT * FROM email WHERE email = ? LIMIT 1",
+      [email]
+    );
+
+    if (existingUser.length > 0) {
+      return NextResponse.json(
+        { error: "이미 존재하는 이메일입니다." },
+        { status: 409 } // 409 Conflict
+      );
+    }
+
+    // 2. 비밀번호 해싱
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // INSERT 쿼리 실행
+    // 3. INSERT 쿼리 실행
     const result = await conn.query(
       "INSERT INTO email (email, password) VALUES (?, ?)",
       [email, hashedPassword]
