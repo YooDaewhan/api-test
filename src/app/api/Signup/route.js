@@ -31,7 +31,7 @@ export async function POST(req) {
 
     // 1. 이메일 중복 검사
     const existingUser = await conn.query(
-      "SELECT * FROM email WHERE user_accounts = ? LIMIT 1",
+      "SELECT * FROM user_accounts WHERE email = ? LIMIT 1",
       [email]
     );
 
