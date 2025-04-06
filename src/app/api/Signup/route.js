@@ -9,7 +9,7 @@ const pool = mariadb.createPool({
   port: 3306,
   user: "ydh960823",
   password: "dbtmddyd2!",
-  database: "my_pokemon_go",
+  database: "MAW",
   connectionLimit: 5,
 });
 
@@ -31,7 +31,7 @@ export async function POST(req) {
 
     // 1. 이메일 중복 검사
     const existingUser = await conn.query(
-      "SELECT * FROM email WHERE email = ? LIMIT 1",
+      "SELECT * FROM email WHERE user_accounts = ? LIMIT 1",
       [email]
     );
 
@@ -47,7 +47,7 @@ export async function POST(req) {
 
     // 3. INSERT 쿼리 실행
     const result = await conn.query(
-      "INSERT INTO email (email, password) VALUES (?, ?)",
+      "INSERT INTO user_accounts (email, password) VALUES (?, ?)",
       [email, hashedPassword]
     );
 

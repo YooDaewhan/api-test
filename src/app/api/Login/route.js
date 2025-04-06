@@ -9,7 +9,7 @@ const pool = mariadb.createPool({
   port: 3306,
   user: "ydh960823",
   password: "dbtmddyd2!",
-  database: "my_pokemon_go",
+  database: "MAW",
   connectionLimit: 5,
 });
 
@@ -31,7 +31,7 @@ export async function POST(req) {
 
     // 이메일로 사용자 검색
     const result = await conn.query(
-      "SELECT * FROM email WHERE email = ? LIMIT 1",
+      "SELECT * FROM email WHERE user_accounts = ? LIMIT 1",
       [email]
     );
 
