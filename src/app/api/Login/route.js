@@ -31,7 +31,7 @@ export async function POST(req) {
 
     // 이메일로 사용자 검색
     const result = await conn.query(
-      "SELECT * FROM email WHERE user_accounts = ? LIMIT 1",
+      "SELECT * FROM user_accounts WHERE email = ? LIMIT 1",
       [email]
     );
 
