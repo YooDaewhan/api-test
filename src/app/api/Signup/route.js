@@ -40,7 +40,7 @@ export async function POST(req) {
 
     return NextResponse.json({
       message: "회원가입 성공",
-      insertId: result.insertId,
+      insertId: Number(result.insertId),
     });
   } catch (error) {
     console.error("DB INSERT 에러:", error);
