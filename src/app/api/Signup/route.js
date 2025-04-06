@@ -1,5 +1,4 @@
 "use server";
-
 import { NextResponse } from "next/server";
 import mariadb from "mariadb";
 import bcrypt from "bcrypt";
