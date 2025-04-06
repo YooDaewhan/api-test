@@ -22,7 +22,7 @@ export async function GET() {
     conn = await pool.getConnection();
 
     // versioninfo 테이블의 모든 데이터를 조회
-    const result = await conn.query("SELECT * FROM monsterinfo");
+    const result = await conn.query("SELECT * FROM itemCSV");
 
     return NextResponse.json({
       success: true,
