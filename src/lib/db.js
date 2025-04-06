@@ -1,4 +1,5 @@
 // src/lib/db.js
+import "dotenv/config";
 import mariadb from "mariadb";
 
 const pool = mariadb.createPool({

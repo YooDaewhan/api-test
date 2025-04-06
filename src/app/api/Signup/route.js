@@ -1,19 +1,10 @@
+// src/app/api/Signup/route.js
 "use server";
+
 import { NextResponse } from "next/server";
-import mariadb from "mariadb";
 import bcrypt from "bcrypt";
+import { getConnection } from "@/lib/db"; // lib에서 getConnection 가져오기
 
-// DB 연결 풀 설정
-const pool = mariadb.createPool({
-  host: "13.125.249.103",
-  port: 3306,
-  user: "ydh960823",
-  password: "dbtmddyd2!",
-  database: "my_pokemon_go",
-  connectionLimit: 5,
-});
-
-// POST 요청 처리
 export async function POST(req) {
   const body = await req.json();
   const { email, password } = body;
@@ -27,12 +18,10 @@ export async function POST(req) {
 
   let conn;
   try {
-    conn = await pool.getConnection();
+    conn = await getConnection(); // 변경된 부분
 
-    // 비밀번호 해싱
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // INSERT 쿼리 실행
     const result = await conn.query(
       "INSERT INTO email (email, password) VALUES (?, ?)",
       [email, hashedPassword]

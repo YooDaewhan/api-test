@@ -1,4 +1,5 @@
 "use server";
+require("dotenv").config();
 import { NextResponse } from "next/server";
 import mariadb from "mariadb";
 import bcrypt from "bcrypt";
